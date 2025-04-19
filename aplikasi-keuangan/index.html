@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aplikasi Keuangan - Mobile Friendly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Simple tab content hide/show */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-blue-600 text-white p-4 flex justify-between items-center">
+    <h1 class="text-lg font-semibold">Aplikasi Keuangan</h1>
+    <nav class="space-x-4 text-sm">
+      <button class="tab-btn font-medium hover:underline" data-tab="dashboard">Dashboard</button>
+      <button class="tab-btn font-medium hover:underline" data-tab="residents">Daftar Warga</button>
+      <button class="tab-btn font-medium hover:underline" data-tab="payments">Pembayaran</button>
+      <button class="tab-btn font-medium hover:underline" data-tab="expenses">Pengeluaran</button>
+    </nav>
+  </header>
+
+  <main class="flex-grow p-4 max-w-md mx-auto w-full">
+    <!-- Dashboard -->
+    <section id="dashboard" class="tab-content active">
+      <h2 class="text-xl font-semibold mb-4">Dashboard Keuangan</h2>
+      <div class="bg-white rounded-lg shadow p-4 mb-6">
+        <h3 class="font-semibold mb-2">Ringkasan Keuangan</h3>
+        <div class="grid grid-cols-2 gap-4 text-center">
+          <div class="bg-green-100 p-4 rounded">
+            <p class="text-green-700 font-bold text-lg">Rp 5.000.000</p>
+            <p class="text-sm text-green-800">Total Tagihan</p>
+          </div>
+          <div class="bg-blue-100 p-4 rounded">
+            <p class="text-blue-700 font-bold text-lg">Rp 3.200.000</p>
+            <p class="text-sm text-blue-800">Total Pembayaran</p>
+          </div>
+          <div class="bg-red-100 p-4 rounded">
+            <p class="text-red-700 font-bold text-lg">Rp 1.800.000</p>
+            <p class="text-sm text-red-800">Total Pengeluaran</p>
+          </div>
+          <div class="bg-yellow-100 p-4 rounded">
+            <p class="text-yellow-700 font-bold text-lg">Rp 2.000.000</p>
+            <p class="text-sm text-yellow-800">Saldo</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-4">
+        <h3 class="font-semibold mb-2">Grafik Keuangan Bulanan</h3>
+        <div class="w-full h-48 flex items-end space-x-2">
+          <!-- Simple bar chart -->
+          <div class="bg-blue-600 rounded-t" style="height: 60%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 40%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 70%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 50%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 80%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 30%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 90%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 60%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 40%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 70%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 50%"></div>
+          <div class="bg-blue-600 rounded-t" style="height: 80%"></div>
+        </div>
+        <div class="flex justify-between text-xs mt-2 text-gray-600">
+          <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>Mei</span><span>Jun</span><span>Jul</span><span>Agu</span><span>Sep</span><span>Okt</span><span>Nov</span><span>Des</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Residents -->
+    <section id="residents" class="tab-content">
+      <h2 class="text-xl font-semibold mb-4">Daftar Warga</h2>
+      <form id="resident-form" class="mb-4 bg-white p-4 rounded shadow">
+        <h3 class="font-semibold mb-2">Tambah Warga Baru</h3>
+        <input type="text" id="resident-name" placeholder="Nama Warga" class="w-full p-2 border border-gray-300 rounded mb-2" required />
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Tambah</button>
+      </form>
+      <div class="bg-white rounded shadow p-4 max-h-64 overflow-y-auto">
+        <ul id="resident-list" class="divide-y divide-gray-200">
+          <!-- Residents will be listed here -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- Payments -->
+    <section id="payments" class="tab-content">
+      <h2 class="text-xl font-semibold mb-4">Pembayaran Iuran</h2>
+      <form id="payment-form" class="mb-4 bg-white p-4 rounded shadow">
+        <h3 class="font-semibold mb-2">Upload Bukti Pembayaran</h3>
+        <input type="file" id="payment-proof" accept="image/*,application/pdf" class="mb-2" />
+        <select id="payment-method" class="w-full p-2 border border-gray-300 rounded mb-2" required>
+          <option value="" disabled selected>Pilih Metode Pembayaran</option>
+          <option value="transfer">Transfer</option>
+          <option value="cash">Cash</option>
+        </select>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Kirim Bukti</button>
+      </form>
+      <div class="bg-white rounded shadow p-4 max-h-64 overflow-y-auto">
+        <h3 class="font-semibold mb-2">Riwayat Pembayaran</h3>
+        <ul id="payment-history" class="divide-y divide-gray-200">
+          <!-- Payment history items -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- Expenses -->
+    <section id="expenses" class="tab-content">
+      <h2 class="text-xl font-semibold mb-4">Pengeluaran</h2>
+      <form id="expense-form" class="mb-4 bg-white p-4 rounded shadow">
+        <h3 class="font-semibold mb-2">Tambah Pengeluaran</h3>
+        <input type="text" id="expense-type" placeholder="Jenis Pengeluaran (Satpam, Kebersihan, Barang, dll)" class="w-full p-2 border border-gray-300 rounded mb-2" required />
+        <input type="number" id="expense-amount" placeholder="Jumlah (Rp)" class="w-full p-2 border border-gray-300 rounded mb-2" required />
+        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Tambah Pengeluaran</button>
+      </form>
+      <div class="bg-white rounded shadow p-4 max-h-64 overflow-y-auto">
+        <h3 class="font-semibold mb-2">Riwayat Pengeluaran</h3>
+        <ul id="expense-history" class="divide-y divide-gray-200">
+          <!-- Expense history items -->
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Tab navigation
+    const tabs = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('underline'));
+        tab.classList.add('underline');
+        const target = tab.getAttribute('data-tab');
+        tabContents.forEach(tc => {
+          tc.classList.toggle('active', tc.id === target);
+        });
+      });
+    });
+    // Set default active tab underline
+    tabs[0].classList.add('underline');
+
+    // Resident management
+    const residentForm = document.getElementById('resident-form');
+    const residentList = document.getElementById('resident-list');
+    let residents = [];
+
+    residentForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const nameInput = document.getElementById('resident-name');
+      const name = nameInput.value.trim();
+      if (name) {
+        residents.push({ name, totalTagihan: 0, monthlyTagihan: 0 });
+        renderResidents();
+        nameInput.value = '';
+      }
+    });
+
+    function renderResidents() {
+      residentList.innerHTML = '';
+      residents.forEach((resident, index) => {
+        const li = document.createElement('li');
+        li.className = 'py-2 flex justify-between items-center';
+        li.innerHTML = `
+          <span>${resident.name}</span>
+          <span class="text-sm text-gray-600">Tagihan Bulanan: Rp ${resident.monthlyTagihan.toLocaleString()}</span>
+        `;
+        residentList.appendChild(li);
+      });
+    }
+
+    // Payment upload and history
+    const paymentForm = document.getElementById('payment-form');
+    const paymentHistory = document.getElementById('payment-history');
+    let payments = [];
+
+    paymentForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const proofInput = document.getElementById('payment-proof');
+      const methodSelect = document.getElementById('payment-method');
+      const method = methodSelect.value;
+      if (!method) {
+        alert('Pilih metode pembayaran');
+        return;
+      }
+      const proofFile = proofInput.files[0];
+      const payment = {
+        id: payments.length + 1,
+        method,
+        proofName: proofFile ? proofFile.name : 'Cash Payment',
+        date: new Date().toLocaleDateString(),
+        status: method === 'cash' ? 'Menunggu Verifikasi' : 'Terverifikasi',
+      };
+      payments.push(payment);
+      renderPayments();
+      proofInput.value = '';
+      methodSelect.value = '';
+    });
+
+    function renderPayments() {
+      paymentHistory.innerHTML = '';
+      payments.forEach(payment => {
+        const li = document.createElement('li');
+        li.className = 'py-2 flex flex-col';
+        li.innerHTML = `
+          <span><strong>Metode:</strong> ${payment.method}</span>
+          <span><strong>Bukti:</strong> ${payment.proofName}</span>
+          <span><strong>Tanggal:</strong> ${payment.date}</span>
+          <span><strong>Status:</strong> ${payment.status}</span>
+        `;
+        paymentHistory.appendChild(li);
+      });
+    }
+
+    // Expense management
+    const expenseForm = document.getElementById('expense-form');
+    const expenseHistory = document.getElementById('expense-history');
+    let expenses = [];
+
+    expenseForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const typeInput = document.getElementById('expense-type');
+      const amountInput = document.getElementById('expense-amount');
+      const type = typeInput.value.trim();
+      const amount = parseInt(amountInput.value);
+      if (!type || isNaN(amount) || amount <= 0) {
+        alert('Masukkan jenis dan jumlah pengeluaran yang valid');
+        return;
+      }
+      expenses.push({ type, amount, date: new Date().toLocaleDateString() });
+      renderExpenses();
+      typeInput.value = '';
+      amountInput.value = '';
+    });
+
+    function renderExpenses() {
+      expenseHistory.innerHTML = '';
+      expenses.forEach(expense => {
+        const li = document.createElement('li');
+        li.className = 'py-2 flex justify-between';
+        li.innerHTML = `
+          <span>${expense.type}</span>
+          <span>Rp ${expense.amount.toLocaleString()}</span>
+        `;
+        expenseHistory.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
